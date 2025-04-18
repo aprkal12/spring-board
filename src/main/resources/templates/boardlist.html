@@ -18,7 +18,7 @@
                 <tr th:each="board : ${list}">
                     <td th:text="${board.id}">1</td>
                     <td>
-                        <a th:text="${board.content}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>
+                        <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>
                     </td>
                 </tr>
             </tbody>

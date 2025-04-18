@@ -13,13 +13,17 @@
         <div class="post-content" th:text="${board.content}">
             게시글 내용이 여기에 표시됩니다.
         </div>
+        <a th:href="@{${board.filepath}}">첨부파일 다운로드</a>
 
         <div class="button-group">
             <div class="button-left">
                 <a class="btn list" th:href="@{/board/list}">목록</a>
             </div>
             <div class="button-right">
-                <a class="btn edit" th:href="@{/board/edit(id=${board.id})}">수정</a>
+                <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
+                    <input type="hidden" name="_method" value="put"/>
+                    <button class="btn modify" type="submit">수정</button>
+                </form>
                 <form th:action="@{/board/delete/{id}(id=${board.id})}" method="post">
                     <input type="hidden" name="_method" value="delete"/>
                     <button class="btn delete" type="submit">삭제</button>
