@@ -1,6 +1,10 @@
 package study.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,8 +34,20 @@ public class BoardController {
     }
 
     @GetMapping("/board/list")
-    public String BoardList(Model model){
-        model.addAttribute("list", boardService.boardlist());
+    public String BoardList(Model model, @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
+        Page<Board> list = boardService.boardlist(pageable);
+
+        int nowPage = list.getPageable().getPageNumber() + 1;
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage = Math.min(nowPage + 5, list.getTotalPages());
+
+
+        model.addAttribute("list", list);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("nowPage", nowPage);
+
+
         return "boardlist";
     }
 
