@@ -24,7 +24,7 @@ public class BoardController {
 
     @GetMapping("/board/writeform")
     public String BoardWriteForm(){
-        return "boardwriteform";
+        return "boardWriteForm";
     }
 
     @PostMapping("/board/write")
@@ -34,45 +34,39 @@ public class BoardController {
     }
 
     @GetMapping("/board/list")
-    public String BoardList(Model model, @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable){
-        Page<Board> list = boardService.boardlist(pageable);
-
-        int nowPage = list.getPageable().getPageNumber() + 1;
-        int startPage = Math.max(nowPage - 4, 1);
-        int endPage = Math.min(nowPage + 5, list.getTotalPages());
-
-
-        model.addAttribute("list", list);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("nowPage", nowPage);
-
-
-        return "boardlist";
+    public String BoardList(Model model,
+                            @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
+                            @RequestParam(name="searchKeyword", defaultValue = "") String searchKeyword) {
+        if (searchKeyword == null) {
+            boardService.boardList(model, pageable);
+        }else{
+            boardService.boardSearchList(model, searchKeyword, pageable);
+        }
+        return "boardList";
     }
 
     @GetMapping("/board/view")
-    public String Boardview(Model model, @RequestParam("id") Integer id){
-        model.addAttribute("board", boardService.boardview(id));
-        return "boardview";
+    public String BoardView(Model model, @RequestParam("id") Integer id){
+        model.addAttribute("board", boardService.boardView(id));
+        return "boardView";
     }
 
     @PutMapping("/board/modify/{id}")
     public String BoardModify(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("board", boardService.boardview(id));
-        return "boardmodify";
+        model.addAttribute("board", boardService.boardView(id));
+        return "boardModify";
     }
 
     @PutMapping("/board/update/{id}")
     public String BoardUpdate(@PathVariable("id") Integer id, Board board, Model model, MultipartFile file){
-        boardService.boardmodify(board, id, model, file);
+        boardService.boardModify(board, id, model, file);
         // 서비스를 호출하고 서비스에서 알람 처리하는게 맞는듯
         return "message";
     }
 
     @DeleteMapping("/board/delete/{id}")
     public String BoardDelete(@PathVariable("id") Integer id, Model model){
-        boardService.boarddelete(id, model);
+        boardService.boardDelete(id, model);
         return "message";
     }
 }
