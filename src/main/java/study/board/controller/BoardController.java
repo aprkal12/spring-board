@@ -1,11 +1,9 @@
 package study.board.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +19,15 @@ public class BoardController {
     @Autowired
     private BoardService boardService;
 
+    @GetMapping("/")
+    public String MainPage(){
+        return "mainPage";
+    }
+
 
     @GetMapping("/board/writeform")
     public String BoardWriteForm(){
-        return "boardWriteForm";
+        return "board/boardWriteForm";
     }
 
     @PostMapping("/board/write")
@@ -37,24 +40,31 @@ public class BoardController {
     public String BoardList(Model model,
                             @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                             @RequestParam(name="searchKeyword", defaultValue = "") String searchKeyword) {
-        if (searchKeyword == null) {
+        if (searchKeyword == null || searchKeyword.isBlank()) {
             boardService.boardList(model, pageable);
         }else{
             boardService.boardSearchList(model, searchKeyword, pageable);
         }
-        return "boardList";
+        return "board/boardList";
     }
+
+//    @GetMapping("/board/search")
+//    public String BoardListRedirect(RedirectAttributes redirectAttributes,
+//                            @RequestParam(name="searchKeyword", defaultValue = "") String searchKeyword) {
+//        redirectAttributes.addFlashAttribute("searchKeyword", searchKeyword);
+//        return "redirect:boardList";
+//    }
 
     @GetMapping("/board/view")
     public String BoardView(Model model, @RequestParam("id") Integer id){
         model.addAttribute("board", boardService.boardView(id));
-        return "boardView";
+        return "board/boardView";
     }
 
     @PutMapping("/board/modify/{id}")
     public String BoardModify(@PathVariable("id") Integer id, Model model){
         model.addAttribute("board", boardService.boardView(id));
-        return "boardModify";
+        return "board/boardModify";
     }
 
     @PutMapping("/board/update/{id}")

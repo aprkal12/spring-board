@@ -121,16 +121,23 @@ public class BoardService {
         startPage = nowPage - halfBlock;
         endPage = nowPage + halfBlock;
 
-        // 왼쪽 끝 보정
-        if (startPage < 1) {
+        if(totalPages == 0){
+            // 페이지가 없을 경우 페이징 관련 값을 설정하지 않음
             startPage = 1;
-            endPage = Math.min(pagecount, totalPages);
-        }
+            endPage = 1;
+            model.addAttribute("noPages", true);
+        }else{
+            // 왼쪽 끝 보정
+            if (startPage < 1) {
+                startPage = 1;
+                endPage = Math.min(pagecount, totalPages);
+            }
 
-        // 오른쪽 끝 보정
-        if (endPage > totalPages) {
-            endPage = totalPages;
-            startPage = Math.max(1, endPage - pagecount + 1);
+            // 오른쪽 끝 보정
+            if (endPage > totalPages) {
+                endPage = totalPages;
+                startPage = Math.max(1, endPage - pagecount + 1);
+            }
         }
 
         model.addAttribute("list", list);

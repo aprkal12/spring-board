@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>홈 - 게시판 메인</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/mainstyle.css}">
+</head>
+<body>
+<div class="container">
+    <h1>Spring Board</h1>
+    <p>아래 버튼을 눌러 게시판으로 이동하세요.</p>
+    <a class="button" th:href="@{/board/list}">게시판 바로가기</a>
+    <a class="button signup" th:href="@{/user/signup}">회원가입</a>
+</div>
+</body>
+</html>

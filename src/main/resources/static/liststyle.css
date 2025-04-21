@@ -111,5 +111,11 @@ td {
     background-color: #1a252f;
 }
 
+.no-posts-message {
+    text-align: center;
+    font-size: 1.4em;
+    color: #666;
+    margin: 40px 0;
+}
 
 

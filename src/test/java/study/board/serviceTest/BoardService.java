@@ -76,7 +76,7 @@ class BoardServiceTest {
         boardRepository.save(board);
 
         // when
-        Board result = boardService.boardview(board.getId());
+        Board result = boardService.boardView(board.getId());
 
         // then
         assertThat(result.getTitle()).isEqualTo("조회 제목");
@@ -92,7 +92,7 @@ class BoardServiceTest {
         Model model = new ConcurrentModel();
 
         // when
-        boardService.boarddelete(board.getId(), model);
+        boardService.boardDelete(board.getId(), model);
 
         // then
         assertThat(boardRepository.findById(board.getId())).isEmpty();
@@ -114,7 +114,7 @@ class BoardServiceTest {
         Model model = new ConcurrentModel();
 
         // when
-        boardService.boardmodify(newBoard, board.getId(), model, null);
+        boardService.boardModify(newBoard, board.getId(), model, null);
 
         // then
         Board updated = boardRepository.findById(board.getId()).get();

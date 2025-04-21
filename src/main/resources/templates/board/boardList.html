@@ -29,23 +29,28 @@
 <!--            <a th:if="${page != nowPage}" th:href="@{/board/list(page=${page - 1})}" th:text="${page}">1</a>-->
 <!--            <strong th:if="${page == nowPage}" th:text="${page}" style="color: red">1</strong>-->
 <!--        </th:block>-->
-        <div class="pagination">
-            <!-- 처음으로 이동 -->
-            <a class="page-link" th:if="${nowPage > 1}" th:href="@{/board/list(page=0, searchKeyword=${param.searchKeyword})}">처음</a>
+        <div th:if="${noPages}" class="no-posts-message">
+            게시물이 없습니다.
+        </div>
+        <div th:unless="${noPages}">
+            <div class="pagination">
+                <!-- 처음으로 이동 -->
+                <a class="page-link" th:if="${nowPage > 1}" th:href="@{/board/list(page=0, searchKeyword=${param.searchKeyword})}">처음</a>
 
-            <!-- 페이지 번호 반복 -->
-            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                <a class="page-link"
-                   th:if="${page != nowPage}"
-                   th:href="@{/board/list(page=${page - 1}, searchKeyword=${param.searchKeyword})}"
-                   th:text="${page}">1</a>
-                <strong class="current-page"
-                        th:if="${page == nowPage}"
-                        th:text="${page}">1</strong>
-            </th:block>
+                <!-- 페이지 번호 반복 -->
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <a class="page-link"
+                       th:if="${page != nowPage}"
+                       th:href="@{/board/list(page=${page - 1}, searchKeyword=${param.searchKeyword})}"
+                       th:text="${page}">1</a>
+                    <strong class="current-page"
+                            th:if="${page == nowPage}"
+                            th:text="${page}">1</strong>
+                </th:block>
 
-            <!-- 마지막으로 이동 -->
-            <a class="page-link" th:if="${nowPage < totalPages}" th:href="@{/board/list(page=${totalPages - 1}, searchKeyword=${param.searchKeyword})}">마지막</a>
+                <!-- 마지막으로 이동 -->
+                <a class="page-link" th:if="${nowPage < totalPages}" th:href="@{/board/list(page=${totalPages - 1}, searchKeyword=${param.searchKeyword})}">마지막</a>
+            </div>
         </div>
         <form th:action="@{/board/list}" method="get" class="search-form">
             <input type="text" name="searchKeyword" class="search-input" placeholder="검색어를 입력하세요"/>
@@ -53,5 +58,6 @@
         </form>
 
     </div>
+
 </body>
 </html>
