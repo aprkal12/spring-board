@@ -27,4 +27,9 @@ public class UserController {
 
         return "message";
     }
+
+    @GetMapping("/user/login")
+    public String loginForm() {
+        return "user/login";
+    }
 }
