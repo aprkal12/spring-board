@@ -91,3 +91,36 @@ body {
     transform: translateY(-1px);
 }
 
+/* 첨부 이미지 스타일 */
+.attached-image {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.attached-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* 첨부파일 다운로드 링크 스타일 */
+.attached-file {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f4f4f4;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.attached-file a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.attached-file a:hover {
+    text-decoration: underline;
+}
+
+

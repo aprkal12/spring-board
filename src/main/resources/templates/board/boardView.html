@@ -13,8 +13,14 @@
         <div class="post-content" th:text="${board.content}">
             게시글 내용이 여기에 표시됩니다.
         </div>
-        <a th:href="@{${board.filepath}}">첨부파일 다운로드</a>
+        <div th:if="${fileType == 'image'}" class="attached-image">
+            <img th:src="@{${board.filepath}}" alt="첨부 이미지" style="max-width: 100%; height: auto;" />
+        </div>
 
+        <!-- 일반 파일일 경우 다운로드 링크 -->
+        <div th:if="${fileType == 'file'}" class="attached-file">
+            <a th:href="@{${board.filepath}}">첨부파일 다운로드</a>
+        </div>
         <div class="button-group">
             <div class="button-left">
                 <a class="btn list" th:href="@{/board/list}">목록</a>

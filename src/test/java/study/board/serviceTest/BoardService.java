@@ -16,6 +16,7 @@ import study.board.service.BoardService;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -75,11 +76,15 @@ class BoardServiceTest {
         board.setContent("조회 내용");
         boardRepository.save(board);
 
+        Model model = new ConcurrentModel();
         // when
-        Board result = boardService.boardView(board.getId());
+        boardService.boardView(board.getId(), model);
+
+        Optional<Board> board1 = boardRepository.findById(board.getId());
+
 
         // then
-        assertThat(result.getTitle()).isEqualTo("조회 제목");
+        assertThat(board1.get().getTitle()).isEqualTo("조회 제목");
     }
 
     @Test

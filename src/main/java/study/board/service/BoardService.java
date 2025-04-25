@@ -11,10 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import study.board.entity.Board;
+import study.board.entity.User;
 import study.board.repository.BoardRepository;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,21 +28,30 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
-    
+    @Autowired
+    private UserService userService;
+
     // 글 작성 처리
     public void write(Board board, MultipartFile file, Model model) throws IOException {
         try {
-            String projectPath = "E:/spring/staticfiles";
+            // 파일이 비어있지 않은 경우에만 처리
+            if (!file.isEmpty()) {
+                String projectPath = "E:/spring/staticfiles";
 
-            UUID uuid = UUID.randomUUID();
-            String fileName = uuid + "_" + file.getOriginalFilename();
+                UUID uuid = UUID.randomUUID();
+                String fileName = uuid + "_" + file.getOriginalFilename();
 
-            File saveFile = new File(projectPath, fileName);
+                File saveFile = new File(projectPath, fileName);
+                file.transferTo(saveFile);
 
-            file.transferTo(saveFile);
-
-            board.setFilename(fileName);
-            board.setFilepath("/files/" + fileName);
+                board.setFilename(fileName);
+                board.setFilepath("/files/" + fileName);
+            } else {
+                board.setFilename(null);
+                board.setFilepath(null);
+            }
+            String username = userService.getCurrentUsername();
+//            System.out.println("현재 사용자: " + username);
 
             boardRepository.save(board);
 
@@ -63,16 +76,36 @@ public class BoardService {
     }
 
     // 특정 게시글 조회 처리
-    public Board boardView(Integer id) {
+    public void boardView(Integer id, Model model) {
         Optional<Board> board = boardRepository.findById(id);
 
-        if (board.isPresent()) {
-            return board.get();
-        }else{
+        if (board.isEmpty()) {
             Board boardisnull = new Board();
             boardisnull.setId(-1);
             boardisnull.setTitle("해당 게시글이 존재하지 않습니다.");
-            return boardisnull;
+            model.addAttribute("board", boardisnull);
+            return;
+        }
+
+        Board targetBoard = board.get();
+        model.addAttribute("board", targetBoard);
+
+        String filePath = targetBoard.getFilepath();
+        if (filePath != null && !filePath.isBlank()) {
+            Path path = Paths.get("E:/spring/staticfiles" + filePath.replace("/files/", "/"));
+            try {
+                String contentType = Files.probeContentType(path);
+//                System.out.println("Content Type: " + contentType);
+                if (contentType != null && contentType.startsWith("image")) {
+                    model.addAttribute("fileType", "image");
+                } else {
+                    model.addAttribute("fileType", "file");
+                }
+            } catch (IOException e) {
+                model.addAttribute("fileType", null); // 예외 발생 시 파일 없음 취급
+            }
+        } else {
+            model.addAttribute("fileType", null); // 파일 없음
         }
     }
 
@@ -98,6 +131,17 @@ public class BoardService {
             boardtmp.setTitle(board.getTitle());
             boardtmp.setContent(board.getContent());
             // save 호출 없이 트랜잭션 커밋 시점에 자동으로 UPDATE 됨
+
+            // 파일이 새로 업로드되었는지 확인
+            if (file != null && !file.isEmpty()) {
+                String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                String projectPath = "E:/spring/staticfiles";
+                File saveFile = new File(projectPath, fileName);
+                file.transferTo(saveFile);
+
+                boardtmp.setFilename(fileName);
+                boardtmp.setFilepath("/files/" + fileName);
+            }
 
             model.addAttribute("message", "게시글이 수정되었습니다.");
         } catch (Exception e) {

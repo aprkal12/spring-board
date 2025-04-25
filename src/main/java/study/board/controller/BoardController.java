@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import study.board.entity.Board;
+import study.board.entity.User;
 import study.board.service.BoardService;
 
 import java.io.IOException;
@@ -57,18 +58,22 @@ public class BoardController {
 
     @GetMapping("/board/view")
     public String BoardView(Model model, @RequestParam("id") Integer id){
-        model.addAttribute("board", boardService.boardView(id));
+        boardService.boardView(id, model);
         return "board/boardView";
     }
+//        model.addAttribute("board", boardService.boardView(id));
+//        return "board/boardView";
+//    }
 
     @PutMapping("/board/modify/{id}")
     public String BoardModify(@PathVariable("id") Integer id, Model model){
-        model.addAttribute("board", boardService.boardView(id));
+        boardService.boardView(id, model);
         return "board/boardModify";
     }
 
     @PutMapping("/board/update/{id}")
-    public String BoardUpdate(@PathVariable("id") Integer id, Board board, Model model, MultipartFile file){
+    public String BoardUpdate(@PathVariable("id") Integer id, Board board, Model model,
+                              @RequestParam(name="file", required = false) MultipartFile file){
         boardService.boardModify(board, id, model, file);
         // 서비스를 호출하고 서비스에서 알람 처리하는게 맞는듯
         return "message";

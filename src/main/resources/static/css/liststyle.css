@@ -118,4 +118,25 @@ td {
     margin: 40px 0;
 }
 
+/* 글 작성 버튼 스타일 */
+.create-button {
+    text-align: right;
+    margin-bottom: 20px; /* 버튼과 테이블 사이의 간격 */
+}
+
+.create-button .btn.create {
+    background-color: #4CAF50; /* 버튼 색상 */
+    color: white; /* 글자 색상 */
+    padding: 10px 20px; /* 버튼 크기 조절 */
+    text-decoration: none; /* 링크 밑줄 제거 */
+    border-radius: 5px; /* 버튼 모서리 둥글게 */
+    font-size: 16px; /* 글자 크기 */
+    transition: background-color 0.3s ease; /* 마우스 오버 시 색상 변화 */
+}
+
+.create-button .btn.create:hover {
+    background-color: #45a049; /* 마우스 오버 시 버튼 색상 */
+}
+
+
 
