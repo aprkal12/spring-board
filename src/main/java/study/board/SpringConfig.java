@@ -33,6 +33,7 @@ public class SpringConfig implements WebMvcConfigurer {
                 .formLogin(form -> form
                         .loginPage("/user/login")
                         .loginProcessingUrl("/login")
+                        .usernameParameter("userid")
                         .defaultSuccessUrl("/board/list", true)
                         .failureUrl("/user/login?error=true")
                         .permitAll()

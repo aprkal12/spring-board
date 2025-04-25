@@ -1,6 +1,8 @@
 package study.board.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,13 +30,12 @@ public class UserService implements UserDetailsService {
 
     // spring security 로그인 구현체
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // username이 userid임
-        User user = userRepository.findByUserid(username)
+    public UserDetails loadUserByUsername(String userid) throws UsernameNotFoundException {
+        User user = userRepository.findByUserid(userid)
                 .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
 
-        System.out.println("아이디: " + user.getUserid());
-        System.out.println("비밀번호: " + user.getPassword());
+//        System.out.println("아이디: " + user.getUserid());
+//        System.out.println("비밀번호: " + user.getPassword());
 
         return new org.springframework.security.core.userdetails.User(
                 user.getUserid(), // 아이디
@@ -60,6 +61,15 @@ public class UserService implements UserDetailsService {
         } finally {
             model.addAttribute("searchUrl", "/board/list");
         }
+    }
+
+    public String getCurrentUsername() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || !authentication.isAuthenticated()) {
+            return null;
+        }
+//        System.out.println("로그인된 사용자: " + authentication.getPrincipal());
+        return authentication.getName(); // principal이 username 문자열일 경우
     }
 
 
