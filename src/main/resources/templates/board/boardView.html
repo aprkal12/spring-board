@@ -9,9 +9,12 @@
 <div class="layout">
     <div class="post-detail">
         <h1 th:text="${board.title}">제목</h1>
-        <p class="post-id" th:text="'글 번호: ' + ${board.id}">글 번호: 1</p>
+        <div class="post-meta">
+            <p class="post-id" th:text="'글 번호: ' + ${board.id}">글 번호: 1</p>
+            <p class="post-author" th:text="'작성자: ' + ${board.author.userid}">작성자: 홍길동</p>
+        </div>
         <div class="post-content" th:text="${board.content}">
-            게시글 내용이 여기에 표시됩니다.
+            게시글 내용
         </div>
         <div th:if="${fileType == 'image'}" class="attached-image">
             <img th:src="@{${board.filepath}}" alt="첨부 이미지" style="max-width: 100%; height: auto;" />

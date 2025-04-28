@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import study.board.entity.Board;
 import study.board.entity.User;
 import study.board.repository.BoardRepository;
+import study.board.repository.UserRepository;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,8 @@ public class BoardService {
 
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private UserRepository userRepository;
     @Autowired
     private UserService userService;
 
@@ -51,6 +54,16 @@ public class BoardService {
                 board.setFilepath(null);
             }
             String username = userService.getCurrentUsername();
+            Optional<User> user = userRepository.findByUserid(username);
+            if (user.isPresent()) {
+                User currentUser = user.get();
+                board.setAuthor(currentUser);
+            } else {
+                model.addAttribute("message", "작성자 정보를 찾을 수 없습니다.");
+                return;
+            }
+
+
 //            System.out.println("현재 사용자: " + username);
 
             boardRepository.save(board);
@@ -88,6 +101,12 @@ public class BoardService {
         }
 
         Board targetBoard = board.get();
+        if(targetBoard.getAuthor() == null){
+            // 작성자가 null인 경우 기본 작성자 설정
+            // 지금은 운영자로 설정하지만 나중에 작성자 정보가 없는경우 예외처리 필요 -> 에러임
+            targetBoard.setAuthor(new User());
+            targetBoard.getAuthor().setUserid("운영자");
+        }
         model.addAttribute("board", targetBoard);
 
         String filePath = targetBoard.getFilepath();

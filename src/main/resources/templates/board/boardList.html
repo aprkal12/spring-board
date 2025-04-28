@@ -13,17 +13,19 @@
         </div>
         <table>
             <thead>
-                <tr>
+                <tr class="table-header">
                     <th>글 번호</th>
                     <th>제목</th>
+                    <th>작성자</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="board : ${list}">
+                <tr class="table-body" th:each="board : ${list}">
                     <td th:text="${board.id}">1</td>
                     <td>
                         <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>
                     </td>
+                    <td th:text="${board.author != null ? board.author.userid : '운영자'}">작성자 표시</td>
                 </tr>
             </tbody>
         </table>
