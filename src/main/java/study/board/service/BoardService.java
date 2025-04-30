@@ -169,6 +169,11 @@ public class BoardService {
             model.addAttribute("searchUrl", "/board/list");
         }
     }
+    public void boardUserList(Model model, String userid, Pageable pageable) {
+        Page<Board> list = boardRepository.findByAuthorUserid(userid, pageable);
+        model.addAttribute(userid);
+        paging(model, list);
+    }
 
     // 페이징 처리 메서드
     private void paging(Model model, Page<Board> list){

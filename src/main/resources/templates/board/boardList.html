@@ -25,7 +25,20 @@
                     <td>
                         <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>
                     </td>
-                    <td th:text="${board.author != null ? board.author.userid : '운영자'}">작성자 표시</td>
+                    <td>
+<!--                        테스트 데이터 때문에 아래처럼 해야함 실제로 무조건 작성자만 글을 작성할 수 있도록 수정해야함-->
+<!--                        테스트 데이터 지운 후엔 이 코드로-->
+<!--                        <a th:text="${board.author != null ? board.author.userid : '운영자'}"-->
+<!--                        th:href="@{/user/{userid}/list(userid=${board.author.userid})}">작성자</a>-->
+                        <!-- 작성자가 있는 경우 링크 -->
+                        <a th:if="${board.author != null}"
+                           th:text="${board.author.userid}"
+                           th:href="@{/user/{userid}/list(userid=${board.author.userid})}">
+                        </a>
+
+                        <!-- 작성자가 없는 경우 텍스트 -->
+                        <span th:if="${board.author == null}">운영자</span>
+                    </td>
                 </tr>
             </tbody>
         </table>

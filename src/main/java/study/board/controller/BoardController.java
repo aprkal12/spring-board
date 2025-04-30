@@ -37,6 +37,26 @@ public class BoardController {
         return "message";
     }
 
+    @PutMapping("/board/modify/{id}")
+    public String BoardModify(@PathVariable("id") Integer id, Model model){
+        boardService.boardView(id, model);
+        return "board/boardModify";
+    }
+
+    @PutMapping("/board/update/{id}")
+    public String BoardUpdate(@PathVariable("id") Integer id, Board board, Model model,
+                              @RequestParam(name="file", required = false) MultipartFile file){
+        boardService.boardModify(board, id, model, file);
+        // 서비스를 호출하고 서비스에서 알람 처리하는게 맞는듯
+        return "message";
+    }
+
+    @DeleteMapping("/board/delete/{id}")
+    public String BoardDelete(@PathVariable("id") Integer id, Model model){
+        boardService.boardDelete(id, model);
+        return "message";
+    }
+
     @GetMapping("/board/list")
     public String BoardList(Model model,
                             @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
@@ -65,23 +85,10 @@ public class BoardController {
 //        return "board/boardView";
 //    }
 
-    @PutMapping("/board/modify/{id}")
-    public String BoardModify(@PathVariable("id") Integer id, Model model){
-        boardService.boardView(id, model);
-        return "board/boardModify";
-    }
-
-    @PutMapping("/board/update/{id}")
-    public String BoardUpdate(@PathVariable("id") Integer id, Board board, Model model,
-                              @RequestParam(name="file", required = false) MultipartFile file){
-        boardService.boardModify(board, id, model, file);
-        // 서비스를 호출하고 서비스에서 알람 처리하는게 맞는듯
-        return "message";
-    }
-
-    @DeleteMapping("/board/delete/{id}")
-    public String BoardDelete(@PathVariable("id") Integer id, Model model){
-        boardService.boardDelete(id, model);
-        return "message";
+    @GetMapping("/user/{userid}/list")
+    public String BoardUserList(@PathVariable("userid") String userid, Model model,
+                                 @PageableDefault(page=0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        boardService.boardUserList(model, userid, pageable);
+        return "board/boardUserList";
     }
 }

@@ -9,4 +9,5 @@ import study.board.entity.Board;
 @Repository
 public interface BoardRepository extends JpaRepository<Board, Integer> {
     Page<Board> findByTitleContaining(String searchKeyword, Pageable pageable);
+    Page<Board> findByAuthorUserid(String userid, Pageable pageable);
 }

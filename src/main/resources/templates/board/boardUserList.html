@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${userid} + '님의 작성글 목록'">작성글 목록</title>
+    <link rel="stylesheet" type="text/css" href="/css/liststyle.css"> <!-- 공통 스타일 -->
+    <link rel="stylesheet" type="text/css" href="/css/userlist.css">  <!-- 추가 스타일 -->
+</head>
+<body>
+<div class="layout">
+    <h2 th:text="${userid} + '님의 작성글 목록'">작성글 목록</h2>
+
+    <table class="post-table">
+        <thead>
+        <tr class="table-header">
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-body" th:each="board : ${list}">
+            <td th:text="${board.id}">1</td>
+            <td>
+                <a th:href="@{/board/view(id=${board.id})}" th:text="${board.title}">제목</a>
+            </td>
+            <td>
+                <a th:if="${board.author != null}"
+                   th:text="${board.author.userid}"
+                   th:href="@{/user/{userid}/list(userid=${board.author.userid})}">작성자</a>
+                <span th:if="${board.author == null}">운영자</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div th:if="${noPages}" class="no-posts-message">
+        게시물이 없습니다.
+    </div>
+    <div th:unless="${noPages}">
+        <div class="pagination">
+            <a class="page-link" th:if="${nowPage > 1}" th:href="@{/user/{userid}/list(userid=${userid}, page=0)}">처음</a>
+
+            <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <a class="page-link"
+                   th:if="${page != nowPage}"
+                   th:href="@{/user/{userid}/list(userid=${userid}, page=${page - 1})}"
+                   th:text="${page}">1</a>
+                <strong class="current-page"
+                        th:if="${page == nowPage}"
+                        th:text="${page}">1</strong>
+            </th:block>
+
+            <a class="page-link" th:if="${nowPage < totalPages}"
+               th:href="@{/user/{userid}/list(userid=${userid}, page=${totalPages - 1})}">마지막</a>
+        </div>
+    </div>
+
+    <div class="back-btn">
+        <a href="/board/list">← 전체 게시글로 돌아가기</a>
+    </div>
+</div>
+</body>
+</html>
