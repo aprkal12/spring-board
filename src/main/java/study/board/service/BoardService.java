@@ -53,8 +53,8 @@ public class BoardService {
                 board.setFilename(null);
                 board.setFilepath(null);
             }
-            String username = userService.getCurrentUsername();
-            Optional<User> user = userRepository.findByUserid(username);
+            String userid = userService.getCurrentUserid();
+            Optional<User> user = userRepository.findByUserid(userid);
             if (user.isPresent()) {
                 User currentUser = user.get();
                 board.setAuthor(currentUser);
@@ -79,12 +79,14 @@ public class BoardService {
     // 게시글 리스트 처리
     public void boardList(Model model, Pageable pageable) {
         Page<Board> list = boardRepository.findAll(pageable);
+        addCurrentUserId(model);
         paging(model, list);
     }
     
     // 게시글 검색 처리
     public void boardSearchList(Model model, String searchKeyword, Pageable pageable) {
         Page<Board> list = boardRepository.findByTitleContaining(searchKeyword, pageable);
+        addCurrentUserId(model);
         paging(model, list);
     }
 
@@ -173,6 +175,12 @@ public class BoardService {
         Page<Board> list = boardRepository.findByAuthorUserid(userid, pageable);
         model.addAttribute(userid);
         paging(model, list);
+    }
+
+    private void addCurrentUserId(Model model){
+        String currentUserId = userService.getCurrentUserid();
+        model.addAttribute("currentuser", currentUserId);
+//        현재 로그인 유저가 null일 경우 로그인 화면 이동 버튼 표시
     }
 
     // 페이징 처리 메서드

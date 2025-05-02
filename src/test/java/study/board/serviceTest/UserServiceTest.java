@@ -23,7 +23,7 @@ public class UserServiceTest {
     @WithMockUser(username = "testuser", roles = {"USER"})
     void 로그인된_사용자_이름을_가져온다() {
         // when
-        String username = userService.getCurrentUsername();
+        String username = userService.getCurrentUserid();
         System.out.println("로그인된 사용자 이름: " + username);
 
         // then

@@ -1,5 +1,6 @@
 package study.board.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -50,8 +51,7 @@ public class UserService implements UserDetailsService {
             String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
             user.setPassword(encryptedPassword);
 
-            UUID uuid = UUID.randomUUID();
-            String username = uuid.toString();
+            String username = user.getUserid();
             user.setUsername(username);
             userRepository.save(user);
 
@@ -62,12 +62,78 @@ public class UserService implements UserDetailsService {
             model.addAttribute("searchUrl", "/board/list");
         }
     }
+    public void myPage(String userid, Model model) {
+        Optional<User> user = userRepository.findByUserid(userid);
+        if(user.isPresent()) {
+            User currentUser = user.get();
+            model.addAttribute("user", currentUser);
+        } else {
+            model.addAttribute("user", null);
+        }
+    }
 
-    public String getCurrentUsername() {
+    @Transactional
+    public void setEmail(String userid, String email, Model model){
+        try {
+            Optional<User> user = userRepository.findByUserid(userid);
+            if(user.isPresent()) {
+                User currentUser = user.get();
+                currentUser.setEmail(email);
+//                userRepository.save(currentUser);
+                model.addAttribute("message", "이메일이 등록되었습니다.");
+            } else {
+                model.addAttribute("message", "사용자를 찾을 수 없습니다.");
+            }
+        } catch (Exception e) {
+            model.addAttribute("message", "이메일 등록에 실패했습니다.");
+        } finally {
+            model.addAttribute("searchUrl", "/user/" + userid + "/mypage");
+        }
+    }
+
+    @Transactional
+    public void updateEmail(String userid, String email, Model model) {
+        try {
+            Optional<User> user = userRepository.findByUserid(userid);
+            if (user.isPresent()) {
+                User currentUser = user.get();
+                currentUser.setEmail(email);
+                model.addAttribute("message", "이메일이 수정되었습니다.");
+            }else{
+                model.addAttribute("message", "사용자를 찾을 수 없습니다.");
+            }
+        }catch (Exception e) {
+            model.addAttribute("message", "이메일 수정에 실패했습니다.");
+        } finally {
+            model.addAttribute("searchUrl", "/user/" + userid + "/mypage");
+        }
+    }
+
+    @Transactional
+    public void updatePassword(String userid, String password, Model model) {
+        try {
+            Optional<User> user = userRepository.findByUserid(userid);
+            if (user.isPresent()) {
+                User currentUser = user.get();
+                String encryptedPassword = bCryptPasswordEncoder.encode(password);
+                currentUser.setPassword(encryptedPassword);
+                model.addAttribute("message", "비밀번호가 수정되었습니다.");
+            }else{
+                model.addAttribute("message", "사용자를 찾을 수 없습니다.");
+            }
+        }catch (Exception e) {
+            model.addAttribute("message", "비밀번호 수정에 실패했습니다.");
+        } finally {
+            model.addAttribute("searchUrl", "/user/" + userid + "/mypage");
+        }
+    }
+
+    public String getCurrentUserid() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
             return null;
         }
+
 //        System.out.println("로그인된 사용자: " + authentication.getPrincipal());
         return authentication.getName(); // principal이 username 문자열일 경우
     }

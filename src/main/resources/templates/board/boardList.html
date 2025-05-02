@@ -9,6 +9,12 @@
 <body>
     <div class="layout">
         <div class="create-button">
+            <a class="btn mypage"
+               th:if="${currentuser != null}"
+               th:href="@{/user/{userid}/mypage(userid=${currentuser})}">마이페이지</a>
+            <a class="btn mypage"
+               th:if="${currentuser == null}"
+               th:href="@{/user/login}">로그인</a>
             <a class="btn create" th:href="@{/board/writeform}">글 작성</a>
         </div>
         <table>

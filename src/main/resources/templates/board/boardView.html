@@ -26,7 +26,8 @@
         </div>
         <div class="button-group">
             <div class="button-left">
-                <a class="btn list" th:href="@{/board/list}">목록</a>
+<!--                <a class="btn list" th:href="@{/board/list}">목록</a>-->
+                <a class="btn list" th:href="${referer}">목록</a>
             </div>
             <div class="button-right">
                 <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">

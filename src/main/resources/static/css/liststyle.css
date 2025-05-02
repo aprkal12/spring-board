@@ -128,7 +128,7 @@ td {
     margin-bottom: 20px; /* 버튼과 테이블 사이의 간격 */
 }
 
-.create-button .btn.create {
+.create-button .btn.create, .create-button .btn.mypage{
     background-color: #4CAF50; /* 버튼 색상 */
     color: white; /* 글자 색상 */
     padding: 10px 20px; /* 버튼 크기 조절 */
@@ -138,9 +138,11 @@ td {
     transition: background-color 0.3s ease; /* 마우스 오버 시 색상 변화 */
 }
 
-.create-button .btn.create:hover {
+.create-button .btn.create:hover, .create-button .btn.mypage:hover{
     background-color: #45a049; /* 마우스 오버 시 버튼 색상 */
 }
+
+
 
 
 

@@ -77,8 +77,15 @@ public class BoardController {
 //    }
 
     @GetMapping("/board/view")
-    public String BoardView(Model model, @RequestParam("id") Integer id){
+    public String BoardView(Model model,
+                            @RequestParam("id") Integer id,
+                            @RequestHeader(value = "referer", required = false) String referer){
         boardService.boardView(id, model);
+
+        if (referer == null || !referer.startsWith("http://localhost:8080")) {
+            referer = "/"; // 내부가 아니면 기본 페이지로, 주소는 배포 후에 바꿔야함
+        }
+        model.addAttribute("referer", referer);
         return "board/boardView";
     }
 //        model.addAttribute("board", boardService.boardView(id));

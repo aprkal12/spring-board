@@ -3,9 +3,7 @@ package study.board.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import study.board.entity.User;
 import study.board.service.BoardService;
 import study.board.service.UserService;
@@ -32,4 +30,29 @@ public class UserController {
     public String loginForm() {
         return "user/login";
     }
+
+    @GetMapping("/user/{userid}/mypage")
+    public String myPage(@PathVariable String userid, Model model) {
+        userService.myPage(userid, model);
+        return "user/myPage";
+    }
+
+    @PostMapping("/user/{userid}/email")
+    public String setEmail(@PathVariable String userid, @RequestParam String email, Model model) {
+        userService.setEmail(userid, email, model);
+        return "message";
+    }
+
+    @PutMapping("/user/{userid}/email")
+    public String updateEmail(@PathVariable String userid, @RequestParam String email, Model model) {
+        userService.updateEmail(userid, email, model);
+        return "message";
+    }
+
+    @PutMapping("/user/{userid}/password")
+    public String updatePassword(@PathVariable String userid, @RequestParam String password, Model model) {
+        userService.updatePassword(userid, password, model);
+        return "message";
+    }
+
 }
