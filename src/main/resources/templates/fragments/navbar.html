@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>공통 네비게이션 바</title>
+</head>
+<body>
+    <div th:fragment="navbar" class="navbar">
+        <a th:href="@{/}">홈</a>
+
+        <!-- 로그인 상태일 때 보여지는 영역 -->
+        <th:block sec:authorize="isAuthenticated()">
+            <span>안녕하세요, <strong sec:authentication="name">사용자</strong>님</span>
+            <a th:href="@{/mypage}">마이페이지</a>
+            <a th:href="@{/logout}">로그아웃</a>
+        </th:block>
+
+        <th:block sec:authorize="isAnonymous()">
+            <a th:href="@{/login}">로그인</a>
+            <a th:href="@{/signup}">회원가입</a>
+        </th:block>
+
+    </div>
+</body>
+</html>

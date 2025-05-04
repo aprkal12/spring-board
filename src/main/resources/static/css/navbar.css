@@ -1,0 +1,41 @@
+/* 네비게이션 바 스타일 */
+.navbar {
+    background-color: #333; /* 어두운 배경 */
+    overflow: hidden;
+    padding: 10px 20px;
+    position: fixed; /* 상단 고정 */
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+/* 링크 스타일 */
+.navbar a {
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+/* 링크 hover 효과 */
+.navbar a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+/* 인사말 스타일 */
+.navbar span {
+    margin-right: 10px;
+}
+
+/* 오른쪽 영역 정렬용 컨테이너 */
+.navbar span[sec\:authorize] {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}

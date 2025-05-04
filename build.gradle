@@ -29,6 +29,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation 'org.postgresql:postgresql:42.7.3'

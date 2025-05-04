@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>게시물 리스트 페이지</title>
     <link rel="stylesheet" type="text/css" href="/css/liststyle.css">
     <link rel="stylesheet" type="text/css" th:href="@{/css/liststyle.css}">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+
     <div class="layout">
         <div class="create-button">
             <a class="btn mypage"

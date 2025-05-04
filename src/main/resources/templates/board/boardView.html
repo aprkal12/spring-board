@@ -4,44 +4,46 @@
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
     <link rel="stylesheet" href="/css/viewstyle.css">
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
-<div class="layout">
-    <div class="post-detail">
-        <h1 th:text="${board.title}">제목</h1>
-        <div class="post-meta">
-            <p class="post-id" th:text="'글 번호: ' + ${board.id}">글 번호: 1</p>
-            <p class="post-author" th:text="'작성자: ' + ${board.author.userid}">작성자: 홍길동</p>
-        </div>
-        <div class="post-content" th:text="${board.content}">
-            게시글 내용
-        </div>
-        <div th:if="${fileType == 'image'}" class="attached-image">
-            <img th:src="@{${board.filepath}}" alt="첨부 이미지" style="max-width: 100%; height: auto;" />
-        </div>
-
-        <!-- 일반 파일일 경우 다운로드 링크 -->
-        <div th:if="${fileType == 'file'}" class="attached-file">
-            <a th:href="@{${board.filepath}}">첨부파일 다운로드</a>
-        </div>
-        <div class="button-group">
-            <div class="button-left">
-<!--                <a class="btn list" th:href="@{/board/list}">목록</a>-->
-                <a class="btn list" th:href="${referer}">목록</a>
+    <div th:replace="~{fragments/navbar :: navbar}"></div>
+    <div class="layout">
+        <div class="post-detail">
+            <h1 th:text="${board.title}">제목</h1>
+            <div class="post-meta">
+                <p class="post-id" th:text="'글 번호: ' + ${board.id}">글 번호: 1</p>
+                <p class="post-author" th:text="'작성자: ' + ${board.author.userid}">작성자: 홍길동</p>
             </div>
-            <div class="button-right">
-                <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
-                    <input type="hidden" name="_method" value="put"/>
-                    <button class="btn modify" type="submit">수정</button>
-                </form>
-                <form th:action="@{/board/delete/{id}(id=${board.id})}" method="post">
-                    <input type="hidden" name="_method" value="delete"/>
-                    <button class="btn delete" type="submit">삭제</button>
-                </form>
-<!--                <a class="btn delete" th:href="@{/board/delete(id=${board.id})}">삭제</a>-->
+            <div class="post-content" th:text="${board.content}">
+                게시글 내용
+            </div>
+            <div th:if="${fileType == 'image'}" class="attached-image">
+                <img th:src="@{${board.filepath}}" alt="첨부 이미지" style="max-width: 100%; height: auto;" />
+            </div>
+
+            <!-- 일반 파일일 경우 다운로드 링크 -->
+            <div th:if="${fileType == 'file'}" class="attached-file">
+                <a th:href="@{${board.filepath}}">첨부파일 다운로드</a>
+            </div>
+            <div class="button-group">
+                <div class="button-left">
+    <!--                <a class="btn list" th:href="@{/board/list}">목록</a>-->
+                    <a class="btn list" th:href="${referer}">목록</a>
+                </div>
+                <div class="button-right">
+                    <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
+                        <input type="hidden" name="_method" value="put"/>
+                        <button class="btn modify" type="submit">수정</button>
+                    </form>
+                    <form th:action="@{/board/delete/{id}(id=${board.id})}" method="post">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button class="btn delete" type="submit">삭제</button>
+                    </form>
+    <!--                <a class="btn delete" th:href="@{/board/delete(id=${board.id})}">삭제</a>-->
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
