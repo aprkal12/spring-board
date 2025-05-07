@@ -1,0 +1,76 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background: #f4f4f9;
+}
+
+/* 가운데 정렬 및 폭 제한 */
+.page-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* 폼 박스 스타일 */
+.form-box {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 제목 */
+.form-box h2 {
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+/* 라벨 */
+.form-box label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* 입력 필드 */
+.form-box input[type="text"],
+.form-box textarea,
+.form-box input[type="file"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+}
+
+/* 텍스트 영역 */
+.form-box textarea {
+    height: 180px;
+    resize: vertical;
+}
+
+/* 버튼 */
+.form-box button {
+    width: 100%;
+    padding: 14px;
+    background-color: #4e73df;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-box button:hover {
+    background-color: #375ac2;
+}

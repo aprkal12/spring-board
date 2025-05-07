@@ -3,18 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 작성폼</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/modify.css">
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
-    <div class="layout">
-        <form action="/board/write" method="post" enctype="multipart/form-data">
-            <input name="title" type="text">
-            <textarea name="content"></textarea>
-            <input type="file" name="file">
-            <button type="submit">작성</button>
-        </form>
+    <div class="page-container">
+        <div class="form-box">
+            <h2>게시물 작성</h2>
+            <form action="/board/write" method="post" enctype="multipart/form-data">
+                <label for="title">제목</label>
+                <input name="title" type="text" id="title" required>
+
+                <label for="content">내용</label>
+                <textarea name="content" id="content" required></textarea>
+
+                <label for="file">첨부파일</label>
+                <input type="file" name="file" id="file">
+
+                <button type="submit">작성하기</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>

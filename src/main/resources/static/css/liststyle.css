@@ -1,9 +1,14 @@
-body {
+* {
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+}
+
+body {
     margin: 0;
     padding: 0;
+    background: #f4f4f9;
 }
+
 
 .layout {
     max-width: 1300px;

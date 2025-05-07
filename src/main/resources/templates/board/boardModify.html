@@ -3,20 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>게시물 수정폼</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/modify.css">
     <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-    <div class="layout">
-        <form th:action="@{/board/update/{id}(id=${board.id})}" method="post" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="put"/>
-            <input name="title" type="text" th:value="${board.title}">
-            <textarea name="content" th:text="${board.content}"></textarea>
-            <input type="file" name="file">
-            <button type="submit">작성</button>
-        </form>
+    <div class="page-container">
+        <div class="form-box">
+            <h2>게시물 수정</h2>
+            <form th:action="@{/board/update/{id}(id=${board.id})}" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="put"/>
+                <label for="title">제목</label>
+                <input id="title" name="title" type="text" th:value="${board.title}">
+
+                <label for="content">내용</label>
+                <textarea id="content" name="content" th:text="${board.content}"></textarea>
+
+                <label for="file">첨부파일</label>
+                <input id="file" type="file" name="file">
+                <button type="submit">수정</button>
+            </form>
+        </div>
     </div>
+
 </body>
 </html>
