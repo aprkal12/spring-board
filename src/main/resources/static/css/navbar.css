@@ -1,41 +1,49 @@
-/* 네비게이션 바 스타일 */
 .navbar {
-    background-color: #333; /* 어두운 배경 */
-    overflow: hidden;
-    padding: 10px 20px;
-    position: fixed; /* 상단 고정 */
-    top: 0;
     width: 100%;
-    z-index: 1000;
+    background-color: #2c3e50;
+    padding: 15px 20px;
+    margin-bottom: 30px; /* 아래 요소와 간격 */
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* 내부 컨테이너 정렬 유지 */
+.navbar-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
     color: white;
-    font-family: Arial, sans-serif;
 }
 
-/* 링크 스타일 */
-.navbar a {
+.navbar-content .nav-left a {
     color: white;
     padding: 8px 16px;
     text-decoration: none;
     font-size: 16px;
 }
 
-/* 링크 hover 효과 */
-.navbar a:hover {
-    background-color: #575757;
+.navbar-content .nav-left a:hover {
+    background-color: #34495e;
     border-radius: 5px;
 }
 
-/* 인사말 스타일 */
-.navbar span {
-    margin-right: 10px;
-}
-
-/* 오른쪽 영역 정렬용 컨테이너 */
-.navbar span[sec\:authorize] {
+.navbar-content .nav-right {
     display: flex;
     gap: 10px;
     align-items: center;
+    padding-right: 30px;
+}
+
+.navbar-content .nav-right a {
+    background-color: #4CAF50;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.navbar-content .nav-right a:hover {
+    background-color: #45a049;
 }

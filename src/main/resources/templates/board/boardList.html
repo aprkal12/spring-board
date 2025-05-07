@@ -11,14 +11,11 @@
     <div th:replace="~{fragments/navbar :: navbar}"></div>
 
     <div class="layout">
+
         <div class="create-button">
-            <a class="btn mypage"
-               th:if="${currentuser != null}"
-               th:href="@{/user/{userid}/mypage(userid=${currentuser})}">마이페이지</a>
-            <a class="btn mypage"
-               th:if="${currentuser == null}"
-               th:href="@{/user/login}">로그인</a>
-            <a class="btn create" th:href="@{/board/writeform}">글 작성</a>
+            <th:block sec:authorize="isAuthenticated()">
+                <a class="btn create" th:href="@{/board/writeform}">글 작성</a>
+            </th:block>
         </div>
         <table>
             <thead>

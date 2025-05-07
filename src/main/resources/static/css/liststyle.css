@@ -6,7 +6,7 @@ body {
 }
 
 .layout {
-    max-width: 800px;
+    max-width: 1300px;
     margin: 50px auto;
     padding: 30px;
     background-color: white;
@@ -87,7 +87,7 @@ td {
 }
 
 .search-input {
-    width: 250px;
+    width: 350px;
     padding: 10px 15px;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -125,6 +125,7 @@ td {
 /* 글 작성 버튼 스타일 */
 .create-button {
     text-align: right;
+    justify-content: flex-end;
     margin-bottom: 20px; /* 버튼과 테이블 사이의 간격 */
 }
 
