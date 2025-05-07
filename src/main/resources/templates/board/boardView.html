@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세 페이지</title>
@@ -31,17 +31,19 @@
     <!--                <a class="btn list" th:href="@{/board/list}">목록</a>-->
                     <a class="btn list" th:href="${referer}">목록</a>
                 </div>
-                <div class="button-right">
-                    <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
-                        <input type="hidden" name="_method" value="put"/>
-                        <button class="btn modify" type="submit">수정</button>
-                    </form>
-                    <form th:action="@{/board/delete/{id}(id=${board.id})}" method="post">
-                        <input type="hidden" name="_method" value="delete"/>
-                        <button class="btn delete" type="submit">삭제</button>
-                    </form>
-    <!--                <a class="btn delete" th:href="@{/board/delete(id=${board.id})}">삭제</a>-->
-                </div>
+                <th:block th:if="${board.author.userid} == ${#authentication.name}">
+                    <div class="button-right">
+                        <form th:action="@{/board/modify/{id}(id=${board.id})}" method="post">
+                            <input type="hidden" name="_method" value="put"/>
+                            <button class="btn modify" type="submit">수정</button>
+                        </form>
+                        <form th:action="@{/board/delete/{id}(id=${board.id})}" method="post">
+                            <input type="hidden" name="_method" value="delete"/>
+                            <button class="btn delete" type="submit">삭제</button>
+                        </form>
+                        <!--                <a class="btn delete" th:href="@{/board/delete(id=${board.id})}">삭제</a>-->
+                    </div>
+                </th:block>
             </div>
         </div>
     </div>
