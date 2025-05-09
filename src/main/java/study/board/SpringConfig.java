@@ -28,7 +28,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/board/list","/user/login", "/user/signup", "/css/**", "/js/**", "/files/**").permitAll()
+                        .requestMatchers("/", "/board/list","/user/login", "/user/signup", "/signup","/user/signUp", "/css/**", "/js/**", "/files/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form

@@ -6,17 +6,21 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/signupstyle.css}">
 </head>
 <body>
-  <div class="signup-container">
-    <h2>회원가입</h2>
-    <form th:action="@{/user/signup}" method="post">
-      <label for="userid">아이디:</label>
+<div class="signup-container">
+  <h2>회원가입</h2>
+  <form th:action="@{/signup}" method="post">
+    <div class="form-group">
+      <label for="userid">아이디</label>
       <input type="text" id="userid" name="userid" required />
+    </div>
 
-      <label for="password">비밀번호:</label>
+    <div class="form-group">
+      <label for="password">비밀번호</label>
       <input type="password" id="password" name="password" required />
+    </div>
 
-      <button type="submit">가입하기</button>
-    </form>
-  </div>
+    <button type="submit">가입하기</button>
+  </form>
+</div>
 </body>
 </html>

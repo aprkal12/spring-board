@@ -15,56 +15,55 @@
             const form = document.getElementById("email-update-form");
             form.style.display = form.style.display === "none" ? "block" : "none";
         }
+
         function togglePasswordUpdateForm() {
             const form = document.getElementById("password-update-form");
             form.style.display = form.style.display === "none" ? "block" : "none";
         }
     </script>
-
 </head>
 <body>
-    <div class="mypage-container">
-        <h2 th:text="${user.userid} + '님의 마이페이지'">마이페이지</h2>
+<div class="mypage-container">
+    <h2 th:text="${user.userid} + '님의 마이페이지'">마이페이지</h2>
 
-        <div class="info-section">
-            <p><strong>아이디:</strong> <span th:text="${user.userid}">userid</span></p>
-            <p><strong>이메일:</strong>
-                <span th:if="${user.email != null}" th:text="${user.email}">email@example.com</span>
-                <span th:if="${user.email == null}">
+    <div class="info-section">
+        <p><strong>아이디:</strong> <span th:text="${user.userid}">userid</span></p>
+        <p><strong>이메일:</strong>
+            <span th:if="${user.email != null}" th:text="${user.email}">email@example.com</span>
+            <span th:if="${user.email == null}">
                     <a href="javascript:void(0);" onclick="toggleEmailForm()">이메일을 등록해주세요</a>
                 </span>
-            </p>
-            <!-- 이메일 입력 폼 (기본은 숨김) -->
-            <form id="email-form" th:action="@{/user/{userid}/email(userid=${user.userid})}" method="post" style="display: none;" class="email-form">
-                <input type="email" name="email" placeholder="새 이메일을 입력하세요" required />
-                <button type="submit">저장</button>
-            </form>
-        </div>
-
-        <div class="action-buttons">
-            <!-- 이메일 변경 버튼 -->
-            <button type="button" onclick="toggleEmailUpdateForm()">이메일 변경</button>
-
-            <!-- 숨겨진 이메일 변경 폼 -->
-            <form id="email-update-form" th:action="@{/user/{userid}/email(userid=${user.userid})}" method="post" style="display: none;">
-                <input type="hidden" name="_method" value="put" />
-                <input type="email" name="email" placeholder="새 이메일을 입력하세요" required />
-                <button type="submit">저장</button>
-            </form>
-
-            <!-- 비밀번호 변경 버튼 -->
-            <button type="button" onclick="togglePasswordUpdateForm()">비밀번호 변경</button>
-
-            <!-- 숨겨진 비밀번호 변경 폼 -->
-            <form id="password-update-form" th:action="@{/user/{userid}/password(userid=${user.userid})}" method="post" style="display: none;">
-                <input type="hidden" name="_method" value="put" />
-                <input type="password" name="password" placeholder="새 비밀번호를 입력하세요" required />
-                <button type="submit">저장</button>
-            </form>
-            <a class="btn" th:href="@{/user/{userid}/list(userid=${user.userid})}">내가 쓴 게시글</a>
-        </div>
-
-        <a class="btn" th:href="@{/board/list}">메인페이지</a>
+        </p>
+        <form id="email-form" th:action="@{/user/{userid}/email(userid=${user.userid})}" method="post" class="form-inline" style="display: none;">
+            <input type="email" name="email" placeholder="새 이메일을 입력하세요" required />
+            <button type="submit">저장</button>
+        </form>
     </div>
+
+    <div class="change-section">
+        <h3 class="section-title">내 정보 변경</h3>
+
+        <button type="button" class="btn btn-secondary" onclick="toggleEmailUpdateForm()">이메일 변경</button>
+        <form id="email-update-form" th:action="@{/user/{userid}/email(userid=${user.userid})}" method="post" class="form-update" style="display: none;">
+            <input type="hidden" name="_method" value="put" />
+            <input type="email" name="email" placeholder="새 이메일을 입력하세요" required />
+            <button type="submit">저장</button>
+        </form>
+
+        <button type="button" class="btn btn-secondary" onclick="togglePasswordUpdateForm()">비밀번호 변경</button>
+        <form id="password-update-form" th:action="@{/user/{userid}/password(userid=${user.userid})}" method="post" class="form-update" style="display: none;">
+            <input type="hidden" name="_method" value="put" />
+            <input type="password" name="password" placeholder="새 비밀번호를 입력하세요" required />
+            <button type="submit">저장</button>
+        </form>
+    </div>
+
+    <div class="post-section">
+        <h3 class="section-title">내 활동</h3>
+        <a class="btn btn-navy-outline" th:href="@{/user/{userid}/list(userid=${user.userid})}">내가 쓴 게시글</a>
+    </div>
+
+    <a class="btn btn-navy" th:href="@{/board/list}">메인페이지</a>
+</div>
 </body>
 </html>

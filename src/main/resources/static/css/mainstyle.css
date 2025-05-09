@@ -1,44 +1,63 @@
 body {
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7fa;
     display: flex;
-    height: 100vh;
     justify-content: center;
     align-items: center;
+    height: 100vh;
 }
 
-.container {
+.main-container {
     text-align: center;
-    background: white;
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 40px 60px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    font-size: 2.5rem;
-    color: #343a40;
+.main-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #003366;
 }
 
-p {
-    margin: 20px 0;
-    font-size: 1.1rem;
-    color: #495057;
+.main-subtitle {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 .button {
     display: inline-block;
-    background-color: #339af0;
-    color: white;
     padding: 12px 24px;
-    border-radius: 10px;
+    font-size: 16px;
     text-decoration: none;
-    font-size: 1rem;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
 }
 
-.button:hover {
-    background-color: #228be6;
+.primary {
+    background-color: #003366;
+    color: #fff;
+}
+
+.primary:hover {
+    background-color: #00254d;
+}
+
+.secondary {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.secondary:hover {
+    background-color: #c6c6c6;
 }

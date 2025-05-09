@@ -15,12 +15,12 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/user/signup")
+    @GetMapping("/signup")
     public String signupform() {
         return "user/signUp";
     }
 
-    @PostMapping("/user/signup")
+    @PostMapping("/signup")
     public String signup(User user, Model model) {
         userService.signUp(user, model);
 

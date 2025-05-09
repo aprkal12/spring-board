@@ -1,17 +1,31 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f2f4f8;
+    margin: 0;
+    padding: 0;
+}
+
 .mypage-container {
     max-width: 600px;
-    margin: 50px auto;
+    margin: 60px auto;
     padding: 30px;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 12px;
-    background-color: #f9f9f9;
-    font-family: Arial, sans-serif;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
 
 .mypage-container h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #333;
+}
+
+.section-title {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #444;
+    text-align: left;
 }
 
 .info-section {
@@ -23,70 +37,106 @@
     margin: 10px 0;
 }
 
-.action-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.form-inline,
+.form-update {
+    margin: 10px 0;
 }
 
-.action-buttons .btn {
-    display: block;
-    text-align: center;
-    padding: 12px;
-    background-color: #007bff;
-    color: white;
-    border-radius: 6px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-}
-
-.action-buttons .btn:hover {
-    background-color: #0056b3;
-}
-
-.email-form {
-    margin-bottom: 20px;
-}
-
-.email-form input[type="email"] {
+.form-inline input,
+.form-update input {
     padding: 10px;
-    width: 70%;
+    width: calc(100% - 110px);
+    margin-right: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
 }
 
-.email-form button {
+.form-inline button,
+.form-update button {
     padding: 10px 16px;
-    background-color: #28a745;
+    background-color: #003366;
     color: white;
     border: none;
     border-radius: 6px;
     cursor: pointer;
 }
 
-.email-form button:hover {
-    background-color: #218838;
+.form-inline button:hover,
+.form-update button:hover {
+    background-color: #002244;
 }
 
-form {
-    display: inline; /* 버튼을 인라인으로 나란히 표시 */
+/* 변경 섹션 스타일 */
+.change-section {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 10px;
 }
 
-form .btn, .btn {
-    background-color: #4CAF50;
+.change-section .btn {
+    margin: 5px 0;
+    width: 100%;
+}
+
+/* 활동 섹션 스타일 */
+.post-section {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+.post-section .btn {
+    display: block;
+    width: 100%;
+    padding: 12px;
+    background-color: #006699;
     color: white;
-    padding: 8px 16px;
-    margin: 5px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
+    border-radius: 6px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
-    transition: background-color 0.3s;
+    font-size: 15px;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin-top: 8px;
+    cursor: pointer;
 }
 
-form .btn:hover, .btn:hover {
-    background-color: #45a049;
+.post-section .btn:hover {
+    background-color: #005580;
+}
+
+/* 공통 버튼 스타일 */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 15px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.btn-navy {
+    background-color: #003366;
+    color: white;
+}
+
+.btn-navy:hover {
+    background-color: #002244;
+}
+
+.btn-secondary {
+    background-color: #006699;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #005580;
 }

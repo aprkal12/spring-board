@@ -48,15 +48,20 @@ public class UserService implements UserDetailsService {
 
     public void signUp(User user, Model model){
         try {
-            // 비밀번호 암호화
-            String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
-            user.setPassword(encryptedPassword);
+            // 유저 중복 확인 로직 추가
+            if(userRepository.existsByUserid(user.getUserid())){
+                model.addAttribute("message", "이미 존재하는 아이디입니다.");
+            }else{
+                // 비밀번호 암호화
+                String encryptedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+                user.setPassword(encryptedPassword);
 
-            String username = user.getUserid();
-            user.setUsername(username);
-            userRepository.save(user);
+                String username = user.getUserid();
+                user.setUsername(username);
+                userRepository.save(user);
 
-            model.addAttribute("message", "회원가입이 완료되었습니다.");
+                model.addAttribute("message", "회원가입이 완료되었습니다.");
+            }
         } catch (Exception e) {
             model.addAttribute("message", "회원가입에 실패했습니다.");
         } finally {
