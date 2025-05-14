@@ -2,16 +2,23 @@ package study.board.serviceTest;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ConcurrentModel;
 import org.springframework.ui.Model;
 import study.board.entity.Board;
+import study.board.entity.User;
 import study.board.repository.BoardRepository;
+import study.board.repository.UserRepository;
 import study.board.service.BoardService;
+import study.board.service.UserService;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -27,9 +34,12 @@ class BoardServiceTest {
 
     @Autowired
     private BoardService boardService;
-
     @Autowired
     private BoardRepository boardRepository;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserRepository userRepository;
 
     // 테스트 후 파일 정리용
     @AfterEach
@@ -43,6 +53,7 @@ class BoardServiceTest {
         }
     }
 
+    @WithMockUser(username = "testuser")
     @Test
     void 게시글_작성_테스트() throws Exception {
         // given
@@ -56,6 +67,12 @@ class BoardServiceTest {
         MockMultipartFile file = new MockMultipartFile("file", testImage.getName(), "image/png", fis);
 
         Model model = new ConcurrentModel();
+
+        User testuser = new User();
+        testuser.setUserid("testuser");
+        testuser.setPassword("testpassword");
+
+        userRepository.save(testuser);
 
         // when
         boardService.write(board, file, model);
