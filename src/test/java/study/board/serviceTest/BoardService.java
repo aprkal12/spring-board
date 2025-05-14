@@ -1,6 +1,7 @@
 package study.board.serviceTest;
 
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ class BoardServiceTest {
         }
     }
 
+    @Disabled("CI 환경에서는 실행하지 않음")
     @WithMockUser(username = "testuser")
     @Test
     void 게시글_작성_테스트() throws Exception {

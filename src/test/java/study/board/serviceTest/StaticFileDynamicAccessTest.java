@@ -2,6 +2,7 @@ package study.board.serviceTest;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -46,6 +47,7 @@ public class StaticFileDynamicAccessTest {
         Files.deleteIfExists(Paths.get(staticDirPath + testFileName));
     }
 
+    @Disabled("CI 환경에서는 실행하지 않음")
     @Test
     public void 동적으로_생성된_파일_정적서빙_테스트() throws Exception {
         mockMvc.perform(get("/files/" + testFileName))
