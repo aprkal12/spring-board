@@ -1,11 +1,11 @@
 pipeline {
-  agent { label 'ec2-agent' }
+  agent { label 'windows-agent' }
 
   environment {
     REGISTRY_CREDENTIALS = credentials('dockerhub-cred-id') // 도커허브 ID/PW
     DOCKER_IMAGE = "ehdehd0175/board-app:latest"
     REPO = "ehdehd0175/board-app"
-    EC2_HOST = "ubuntu@3.34.130.77"
+    EC2_HOST = "ubuntu@54.180.97.188"
     DB_URL = "jdbc:mariadb://61.255.58.189:13306/board"
     DB_USERNAME = "admin"
     SSH_PORT = "222"
