@@ -50,6 +50,17 @@ Jenkins를 이용해 CI/CD 파이프라인을 구축하여 GitHub 커밋 → 빌
 
 ## 🚀 CI/CD 파이프라인 구성
 
+### 배포 환경
+- windows
+  - spring app 개발
+  - jenkins controller & agent (docker)
+  - mariadb (docker)
+- ec2
+  - 배포 서버
+  - spring app (docker)
+  - jenkins agent (docker)
+  - nginx proxy (docker)
+
 
 ### 전체 흐름
 
@@ -57,14 +68,14 @@ Jenkins를 이용해 CI/CD 파이프라인을 구축하여 GitHub 커밋 → 빌
 [GitHub]
   └─ Push (main branch)
       ↓ Webhook
-[Jenkins (Local Controller)]
+[Jenkins]
   └─ Gradle Build & Test
       ↓
   └─ Docker Image Build
       ↓
   └─ DockerHub Push
       ↓
-[EC2 (Jenkins Agent)]
+[EC2]
   └─ SSH로 접속
   └─ .env 파일 동적 생성
   └─ docker-compose pull
@@ -80,14 +91,12 @@ Jenkins를 이용해 CI/CD 파이프라인을 구축하여 GitHub 커밋 → 빌
    GitHub에 push하면 webhook이 Jenkins 트리거
 
 2. **Jenkins Pipeline 실행**
-   - Docker Container 환경의 Jenkins Controller
    - `Jenkinsfile` 기반으로 실행  
    - `./gradlew clean build`로 테스트 및 빌드 수행  
    - `Dockerfile`로 이미지 빌드  
    - DockerHub에 푸시  
 
 3. **EC2 원격 배포**
-   - Docker Container 환경의 Jenkins Agent
    - Jenkins에서 EC2에 SSH 접속  
    - `.env` 파일 동적 생성 (DB 정보 포함)  
    - `docker-compose`로 기존 컨테이너 종료 및 재기동  
